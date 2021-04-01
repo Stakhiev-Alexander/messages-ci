@@ -202,7 +202,7 @@ def test_add_body(get_email, mocker):
 # TESTS: Email._add_attachments
 ##############################################################################
 
-@skip_if_on_travisCI
+@skip_if_not_on_travisCI
 def test_add_attachments_list_local(get_email, mocker):
     """
     GIVEN a valid Email object, where Email.generate_email() has been called
