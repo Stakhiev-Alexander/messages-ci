@@ -221,25 +221,6 @@ def test_add_attachments_list_local(get_email, mocker):
 
 
 @skip_if_not_on_travisCI
-def test_add_attachments_list_travis(get_email, mocker):
-    """
-    GIVEN a valid Email object, where Email.generate_email() has been called
-         and Email.attachments is a list
-    WHEN Email.add_attachments() is called
-    THEN assert correct attachments are attached
-    """
-    header_mock = mocker.patch.object(Email, '_add_header')
-    body_mock = mocker.patch.object(Email, '_add_body')
-    mime_attach_mock = mocker.patch.object(MIMEMultipart, 'attach')
-    e = get_email
-    PATH = '/home/travis/build/trp07/messages/tests/data/'
-    e.attachments = [PATH + 'file1.txt', PATH + 'file2.png',
-                     PATH + 'file3.pdf', PATH + 'file4.xlsx']
-    e._generate_email()
-    assert mime_attach_mock.call_count == 4
-
-
-@skip_if_on_travisCI
 def test_add_attachments_str_local(get_email, mocker):
     """
     GIVEN a valid Email object, where Email.generate_email() has been called
@@ -252,24 +233,6 @@ def test_add_attachments_str_local(get_email, mocker):
     mime_attach_mock = mocker.patch.object(MIMEMultipart, 'attach')
     e = get_email
     e.attachments = 'tests/data/file1.txt'
-    e._generate_email()
-    assert mime_attach_mock.call_count == 1
-
-
-@skip_if_not_on_travisCI
-def test_add_attachments_str_travis(get_email, mocker):
-    """
-    GIVEN a valid Email object, where Email.generate_email() has been called
-         and Email.attachments is a str
-    WHEN Email.add_attachments() is called
-    THEN assert correct attachments are attached
-    """
-    header_mock = mocker.patch.object(Email, '_add_header')
-    body_mock = mocker.patch.object(Email, '_add_body')
-    mime_attach_mock = mocker.patch.object(MIMEMultipart, 'attach')
-    e = get_email
-    PATH = '/home/travis/build/trp07/messages/tests/data/'
-    e.attachments = PATH + 'file1.txt'
     e._generate_email()
     assert mime_attach_mock.call_count == 1
 
