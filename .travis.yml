@@ -8,6 +8,6 @@ env:
 install:
   - pip install .
   - pip install pytest-cov pytest-mock coveralls
-script: py.test --cov=messages-ci
+script: py.test --cov=messages tests/
 after_success:
 - coveralls
