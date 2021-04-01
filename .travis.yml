@@ -1,0 +1,13 @@
+language: python
+python:
+  - "3.5"
+  - "3.6"
+env:
+  global:
+    - PYTHONPATH="/home/travis/build/trp07/messages"
+install:
+  - pip install .
+  - pip install pytest-cov pytest-mock coveralls
+script: py.test --cov=messages
+after_success:
+- coveralls

@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+dist/
+eggs/
+.eggs/
+*.egg-info/
+*.egg
+
+#Virtual Python Environments
+/venv
+
+#Integrated Development Environments
+/.idea
+.idea/
+
+.coverage
