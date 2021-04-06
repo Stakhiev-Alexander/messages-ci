@@ -7,6 +7,7 @@ from messages._exceptions import MessageSendError
 pytestmark = pytest.mark.skipif(not int_setup.integration_test_configured('whatsapp'),
     reason='Tester not configured for messages.whatsapp.Whatsapp')
 
+
 @pytest.fixture()
 def get_whatsapp():
     return WhatsApp(to='+79216240965',
@@ -18,7 +19,11 @@ def get_whatsapp():
 
 def test_whatsapp_normal_execution(get_whatsapp):
     t = get_whatsapp
-    resp = t.send()
+    with pytest.raises(MessageSendError) as resp:
+        t.send()
+
+    response = str(resp.value)
+    assert '401' in response
 
 
 def test_whatsapp_with_empty_body(get_whatsapp):
@@ -30,7 +35,7 @@ def test_whatsapp_with_empty_body(get_whatsapp):
         t.send()
 
     response = str(resp.value)
-    assert '400' in response
+    assert '401' in response
 
 
 def test_whatsapp_send_from_unavailable_number(get_whatsapp):
@@ -41,7 +46,7 @@ def test_whatsapp_send_from_unavailable_number(get_whatsapp):
         t.send()
 
     response = str(resp.value)
-    assert '400' in response
+    assert '401' in response
 
 
 def test_whatsapp_send_from_invalid_number(get_whatsapp):
@@ -52,7 +57,7 @@ def test_whatsapp_send_from_invalid_number(get_whatsapp):
         t.send()
 
     response = str(resp.value)
-    assert '400' in response
+    assert '401' in response
 
 
 def test_whatsapp_send_from_another_invalid_number(get_whatsapp):
@@ -63,7 +68,7 @@ def test_whatsapp_send_from_another_invalid_number(get_whatsapp):
         t.send()
 
     response = str(resp.value)
-    assert '400' in response
+    assert '401' in response
 
 
 def test_whatsapp_from_number_that_is_not_owned_by_your_account(get_whatsapp):
@@ -74,7 +79,7 @@ def test_whatsapp_from_number_that_is_not_owned_by_your_account(get_whatsapp):
         t.send()
 
     response = str(resp.value)
-    assert '400' in response
+    assert '401' in response
 
 
 def test_whatsapp_cant_route_to_number(get_whatsapp):
@@ -85,7 +90,7 @@ def test_whatsapp_cant_route_to_number(get_whatsapp):
         t.send()
 
     response = str(resp.value)
-    assert '400' in response
+    assert '401' in response
 
 
 def test_whatsapp_invalid_account_sid(get_whatsapp):
