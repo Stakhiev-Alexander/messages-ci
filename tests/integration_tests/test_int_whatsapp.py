@@ -116,4 +116,3 @@ def test_whatsapp_invalid_auth_token(get_whatsapp):
     response = str(resp.value)
     assert '401' in response
     assert 'Unauthorized' in response
-    assert 'Authenticate' in response
