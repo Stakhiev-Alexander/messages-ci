@@ -9,6 +9,9 @@ install:
   - pip install pytest-cov pytest-mock coveralls
   - pip install keyrings.alt
   - python3 generate_config.py
+  - free -h
+  - top
 script: py.test --cov=messages tests/
 after_success:
-- coveralls
+- free -h
+- top
