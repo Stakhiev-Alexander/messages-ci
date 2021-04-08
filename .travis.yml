@@ -10,8 +10,8 @@ install:
   - pip install keyrings.alt
   - python3 generate_config.py
   - free -h
-  - top
+  - top -bn1
 script: py.test --cov=messages tests/
 after_success:
 - free -h
-- top
+- top -bn1
